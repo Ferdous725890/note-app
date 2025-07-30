@@ -1,6 +1,7 @@
 import { model, Schema } from "mongoose";
+import { INotes } from "../interfeces/not.interfetch";
 
-const notSchema = new Schema(
+const notSchema = new Schema <INotes>(
   {
     title: { type: String, require: true, trim: true },
     conten: { type: String, default: "" },
@@ -24,4 +25,4 @@ const notSchema = new Schema(
   }
 );
 
-export const Note = model("Note", notSchema);
+export const Note = model<INotes>("Note", notSchema);
