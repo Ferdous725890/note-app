@@ -1,5 +1,6 @@
 import { model, Schema } from "mongoose";
 import { INotes } from "../interfeces/not.interfetch";
+import { string } from "zod";
 
 const notSchema = new Schema <INotes>(
   {
@@ -18,6 +19,11 @@ const notSchema = new Schema <INotes>(
       label: { type: String, require: true },
       color: { type: String, default: "Gray" },
     },
+    userId  : {
+      type : Schema.Types.ObjectId,
+      ref : "User",
+      required : true
+    }
   },
   {
     versionKey: false,

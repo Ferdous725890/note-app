@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express"
 import { Note } from "../model/node.models";
+import { create } from "domain";
 export const notRouter = express.Router()
 
 // post route
@@ -9,8 +10,13 @@ notRouter.post("/create-not-app", async (req: Request, res: Response) => {
     tags: {
       label: "database",
     },
+    userId : "688b28b9fa142750064f86ae"
   });
 
+
+  console.log(myNote, "my note")
+
+  
   //save file path
   await myNote.save();
 
@@ -22,6 +28,17 @@ notRouter.post("/create-not-app", async (req: Request, res: Response) => {
 });
 
 //----UPDATE
+notRouter.get("/all-note-get", async (req: Request, res: Response) => {
+ const notes = await Note.find().populate("userId")
+ res.status(200).json({
+      success: true,
+      message: "Note Updated Successfully",
+      data : notes,
+    });
+ 
+});
+
+
 notRouter.patch("/:noteId", async (req: Request, res: Response) => {
   const noteId = req.params.noteId;
   console.log(noteId);

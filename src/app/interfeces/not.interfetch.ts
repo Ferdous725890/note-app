@@ -1,3 +1,4 @@
+import { Types } from "mongoose"
 
 export interface INotes{
     title : string,
@@ -9,4 +10,6 @@ export interface INotes{
         label : string,
         color : string
     }
+
+    userId : Types.ObjectId,
 }

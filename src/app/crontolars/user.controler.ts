@@ -17,17 +17,18 @@ const createdUserZodSchema = z.object({
 // post route
 userRouter.post("/create-user", async (req: Request, res: Response) => {
   try {
-    const body = await createdUserZodSchema.parseAsync(req.body)
+    // const body = await createdUserZodSchema.parseAsync(req.body);
 
-    console.log(body, "Zod Body ");
+    // console.log(body, "Zod Body ");
+    const body = req.body;
+console.log(body)
     const user = User.create(body);
-    console.log(user);
+    console.log(user, "Console Hobe User");
     res.status(201).json({
       success: true,
       message: "User created Successfully",
-      user : {
-        
-      }
+      body : body
+
     });
   } catch (error) {
     console.log(error);
