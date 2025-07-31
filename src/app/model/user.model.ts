@@ -1,22 +1,21 @@
-import { model, Schema } from "mongoose";
-import { IAddress, Iuser } from "../interfeces/user.interfech";
+import{model, Model, Schema } from "mongoose";
+import { IAddress, Iuser,  UserInstanceMethod } from "../interfeces/user.interfech";
 import validator from "validator";
 import { string } from "zod";
+import bcrypt from "bcryptjs"
 
+const addreessSchema = new Schema<IAddress>(
+  {
+    city: { type: String },
+    state: { type: String },
+    zip: { type: Number },
+  },
+  {
+    _id: false,
+  }
+);
 
-const addreessSchema = new Schema<IAddress>({
-  city : {type : String},
-  state : {type : String},
-  zip : {type : Number},
-},
-{
-  _id : false
-}
-
-)
-
-
-const userSchema = new Schema<Iuser>({
+const userSchema = new Schema<Iuser, Model<Iuser>, UserInstanceMethod>({
   firstname: {
     type: String,
     required: [true, "First Name Must Be Need "],
@@ -47,7 +46,7 @@ const userSchema = new Schema<Iuser>({
   },
 
   addreess: {
- type : addreessSchema
+    type: addreessSchema,
   },
 
   //     validate : {
@@ -71,6 +70,11 @@ const userSchema = new Schema<Iuser>({
     },
     default: "user",
   },
+});
+
+userSchema.method("haspassword", async function(plainpassword: string) {
+  const password = await bcrypt.hash(plainpassword, 10);
+  return password;
 });
 
 export const User = model("User", userSchema);

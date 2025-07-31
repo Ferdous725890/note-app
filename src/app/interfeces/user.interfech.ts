@@ -13,3 +13,9 @@ export interface Iuser {
   addreess: IAddress;
   role: "user" | "admin";
 }
+
+
+export interface UserInstanceMethod {
+  // haspassword(password: string): Promise<string>;
+  haspassword(password: string): string
+}

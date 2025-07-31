@@ -22,17 +22,22 @@ userRouter.post("/create-user", async (req: Request, res: Response) => {
     // console.log(body, "Zod Body ");
     const body = req.body;
 
-    const password = await bcrypt.hash(body.password, 10);
-      body.password = password;
-      
-    console.log(password)
+    // const password = await bcrypt.hash(body.password, 10);
+    //   body.password = password;
+    // console.log(password)
 
-    const user = User.create(body);
+    // const user = User.create(body);
+    const user = new User(body);
+    const password = await user.haspassword(body.password);
+    user.password = password as string 
+    await user.save();
+    console.log(password);
+
     console.log(user, "Console Hobe User");
     res.status(201).json({
       success: true,
       message: "User created Successfully",
-      body: body,
+     user : user
     });
   } catch (error) {
     console.log(error);
