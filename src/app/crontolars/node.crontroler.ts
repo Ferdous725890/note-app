@@ -3,6 +3,7 @@ import { Note } from "../model/node.models";
 import { create } from "domain";
 export const notRouter = express.Router()
 
+
 // post route
 notRouter.post("/create-not-app", async (req: Request, res: Response) => {
   const myNote = new Note({
@@ -12,9 +13,6 @@ notRouter.post("/create-not-app", async (req: Request, res: Response) => {
     },
     userId : "688b28b9fa142750064f86ae"
   });
-
-
-  console.log(myNote, "my note")
 
   
   //save file path
